@@ -1,0 +1,40 @@
+service: backend-django
+app: online_assessment
+org: bl001
+
+plugins:
+  - serverless-python-requirements
+  - serverless-wsgi
+  - serverless-dynamodb-local
+  - serverless-offline 
+
+custom:
+  wsgi:
+    app: online_assessment.wsgi.application
+    packRequirements: false
+
+
+provider:
+  name: aws
+  runtime: python3.7
+  environment:
+    POSTGRES_HOST: ${param:EXAMCAMBACKEND_POSTGRES_HOST}
+    POSTGRES_PORT: ${param:EXAMCAMBACKEND_POSTGRES_PORT}
+    POSTGRES_DB: ${param:EXAMCAMBACKEND_POSTGRES_DB}
+    POSTGRES_USER: ${param:EXAMCAMBACKEND_POSTGRES_USER}
+    POSTGRES_PASSWORD: ${param:EXAMCAMBACKEND_POSTGRES_PASSWORD}
+    SECRET_KEY: ${param:EXAMCAMBACKEND_SECRET_KEY}
+    DJANGO_SETTINGS_MODULE: online_assessment.settings
+
+functions:
+  app:
+    handler: wsgi_handler.handler
+    timeout: 30
+    events:
+      - http: ANY /
+      - http: ANY {proxy+}
+  migrate:
+    handler: serverless_migrate.handler
+    timeout: 300
+
+

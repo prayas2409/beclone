@@ -10,7 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+from dotenv import load_dotenv
 from pathlib import Path
+
+env_path = Path('..') / '.env'
+load_dotenv(dotenv_path=env_path)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -49,7 +53,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'fraud_detection.urls'
+ROOT_URLCONF = 'online_assessment.urls'
 
 TEMPLATES = [
     {
@@ -67,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'fraud_detection.wsgi.application'
+WSGI_APPLICATION = 'online_assessment.wsgi.application'
 
 
 # Database
@@ -76,7 +80,7 @@ WSGI_APPLICATION = 'fraud_detection.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': str(BASE_DIR / 'db.sqlite3'),
     }
 }
 

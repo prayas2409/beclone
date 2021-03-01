@@ -12,9 +12,17 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from dotenv import load_dotenv
 from pathlib import Path
+import os
+import environ
 
 env_path = Path('..') / '.env'
 load_dotenv(dotenv_path=env_path)
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,7 +32,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '9be4*_&f#nljgrlw^xt=_i&gf_gnr+583n7!mk^zfsalu_d5m1'
+SECRET_KEY = os.environ.get('EXAMCAMBACKEND_SECRET_KEY')
+
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -41,6 +51,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'Auth.apps.AuthConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -122,3 +134,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#Email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ.get("USEREMAIL")
+EMAIL_HOST_PASSWORD = os.environ.get("USERPASS")

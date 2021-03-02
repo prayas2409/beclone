@@ -142,3 +142,8 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ.get("USEREMAIL")
 EMAIL_HOST_PASSWORD = os.environ.get("USERPASS")
+
+#Redis
+REDIS_HOST = os.environ.get('REDISHOST')
+REDIS_PORT = os.environ.get('REDISPORT')
+REDIS_PASSWORD = os.environ.get('REDIS_PASSWORD')

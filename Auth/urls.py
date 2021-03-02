@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import Login
+from .views import Login,VerifyUser
 
 urlpatterns = [
     path('login/', Login.as_view(),name="login"),
+    path('verifyUser/',VerifyUser.as_view(),name="verifyUser"),
 ]

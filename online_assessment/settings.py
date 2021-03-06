@@ -15,7 +15,7 @@ from pathlib import Path
 import os
 import environ
 
-if !os.environ.get("ENV"):
+if not os.environ.get("ENV"):
     env_path = Path('..') / '.env'
     load_dotenv(dotenv_path=env_path)
     env = environ.Env(

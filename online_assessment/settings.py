@@ -15,14 +15,16 @@ from pathlib import Path
 import os
 import environ
 
-env_path = Path('..') / '.env'
-load_dotenv(dotenv_path=env_path)
-env = environ.Env(
-    # set casting, default value
-    DEBUG=(bool, False)
-)
+if !os.environ.get("ENV"):
+    env_path = Path('..') / '.env'
+    load_dotenv(dotenv_path=env_path)
+    env = environ.Env(
+        # set casting, default value
+        DEBUG=(bool, False)
+    )
+#Todo: if .env found then local else prod
 
-environ.Env.read_env()
+# environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
